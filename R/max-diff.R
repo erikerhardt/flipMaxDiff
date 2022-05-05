@@ -175,7 +175,7 @@ Memberships <- function(object)
 #' \code{print.CorrespondenceAnalysis}
 #' @param x FitMaxDiff object.
 #' @param ... further arguments passed to or from other methods.
-#' @importFrom flipFormat HistTable MaxDiffTableClasses FormatAsPercent FormatWithDecimals
+#' @importFrom flipFormat HistTable MaxDiffTableClasses FormatAsPercent FormatAsReal
 #' @importFrom stats median quantile
 #' @export
 print.FitMaxDiff <- function(x, ...)
@@ -203,8 +203,8 @@ print.FitMaxDiff <- function(x, ...)
     footer <- paste0(footer, "Alternatives per question: ", x$n.alternatives.per.task, "; ")
     if (x$algorithm != "HB")
     {
-        footer <- paste0(footer, "Log-likelihood: ", FormatWithDecimals(x$log.likelihood, 2), "; ")
-        footer <- paste0(footer, "BIC: ", FormatWithDecimals(x$bic, 2), "; ")
+        footer <- paste0(footer, "Log-likelihood: ", FormatAsReal(x$log.likelihood, 2), "; ")
+        footer <- paste0(footer, "BIC: ", FormatAsReal(x$bic, 2), "; ")
     }
 
     footer <- if (!x$lc && x$algorithm != "HB" && !x$is.mixture.of.normals)
