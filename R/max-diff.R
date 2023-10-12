@@ -175,7 +175,7 @@ Memberships <- function(object)
 #' \code{print.CorrespondenceAnalysis}
 #' @param x FitMaxDiff object.
 #' @param ... further arguments passed to or from other methods.
-#' @importFrom flipFormat HistTable MaxDiffTableClasses FormatAsPercent FormatWithDecimals
+#' @importFrom flipFormat HistTable MaxDiffTableClasses FormatAsPercent FormatAsReal
 #' @importFrom stats median quantile
 #' @export
 print.FitMaxDiff <- function(x, ...)
@@ -193,7 +193,7 @@ print.FitMaxDiff <- function(x, ...)
         footer <- paste0(footer, "Filters have been applied; ")
     if (!is.null(x$weights))
         footer <- paste0(footer, "Weights have been applied; Effective sample size: ",
-                         FormatWithDecimals(x$effective.sample.size, 2), "; ")
+                         FormatAsReal(x$effective.sample.size, 2), "; ")
     footer <- paste0(footer, "Number of questions: ", x$n.questions, "; ")
     if (x$questions.left.out > 0)
     {
@@ -203,8 +203,8 @@ print.FitMaxDiff <- function(x, ...)
     footer <- paste0(footer, "Alternatives per question: ", x$n.alternatives.per.task, "; ")
     if (x$algorithm != "HB")
     {
-        footer <- paste0(footer, "Log-likelihood: ", FormatWithDecimals(x$log.likelihood, 2), "; ")
-        footer <- paste0(footer, "BIC: ", FormatWithDecimals(x$bic, 2), "; ")
+        footer <- paste0(footer, "Log-likelihood: ", FormatAsReal(x$log.likelihood, 2), "; ")
+        footer <- paste0(footer, "BIC: ", FormatAsReal(x$bic, 2), "; ")
     }
 
     footer <- if (!x$lc && x$algorithm != "HB" && !x$is.mixture.of.normals)
@@ -246,7 +246,7 @@ print.FitMaxDiff <- function(x, ...)
         probs <- x$respondent.probabilities
         stats.table <- matrix(NA, nrow = ncol(probs), ncol = 1)
         for (i in 1:ncol(probs))
-            stats.table[i, 1] <- FormatWithDecimals(mean(probs[, i], na.rm = TRUE) * 100, 1)
+            stats.table[i, 1] <- FormatAsReal(mean(probs[, i], na.rm = TRUE) * 100, 1)
         colnames(stats.table) <- "Mean Probability (%)"
 
         HistTable(100 * probs, title = title, subtitle = subtitle, footer = footer,
